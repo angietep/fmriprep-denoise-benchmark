@@ -203,5 +203,5 @@ def _get_subject_info(output, data):
     subject_output = output / subject_id
     subject_output.mkdir(exist_ok=True)
 
-    subject_mask = f"{subject_root}/{subject_spec}_desc-brain_mask.nii.gz"
+    subject_mask = f"{subject_root}{subject_spec}_desc-brain_mask.nii.gz"
     return subject_spec, subject_output, subject_mask

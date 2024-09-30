@@ -39,7 +39,7 @@ def get_atlas_pairwise_distance(atlas_name, dimension):
     # Transform into pandas dataframe
     pairwise_distance = pd.DataFrame(pairwise_distance, index=labels, columns=labels)
     # keep lower triangle and flatten match nilearn.connectome.sym_matrix_to_vec
-    lower_mask = np.tril(np.ones(pairwise_distance.shape), k=-1).astype(np.bool)
+    lower_mask = np.tril(np.ones(pairwise_distance.shape), k=-1).astype(bool)
     pairwise_distance = pairwise_distance.where(lower_mask)
     pairwise_distance = pairwise_distance.stack().reset_index()
     pairwise_distance.columns = ["row", "column", "distance"]

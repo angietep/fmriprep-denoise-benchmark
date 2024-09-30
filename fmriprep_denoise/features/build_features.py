@@ -14,7 +14,7 @@ from fmriprep_denoise.features import qcfc, louvain_modularity
 
 
 # another very bad special case handling
-group_info_column = {"ds000228": "Child_Adult", "ds000030": "diagnosis"}
+group_info_column = {"ds000228": "Child_Adult", "ds000030": "diagnosis", "SAYproject": "group"}
 
 
 def parse_args():
@@ -54,7 +54,7 @@ def parse_args():
     parser.add_argument(
         "--metric",
         action="store",
-        default="connectomes",
+        default="connectome",
         help="Metric to build {connectomes, qcfc, modularity}",
     )
     return parser.parse_args()
@@ -70,13 +70,17 @@ def main():
 
     print(input_path)
     dataset = input_path.parents[0].name
+    dataset = "SAYproject"
     fmriprep_ver = input_path.name
+    fmriprep_ver ="fmriprep"
     path_root = Path(args.output_path).absolute()
-    output_path = path_root / dataset / fmriprep_ver
+    output_path = path_root / dataset / fmriprep_ver / "outputs_test"
     output_path.mkdir(parents=True, exist_ok=True)
-    print(dataset)
-    print(fmriprep_ver)
-    print(output_path)
+    print(f"output: {output_path}")
+    print(f"path_root: {path_root}")
+    print(f"Dataset: {dataset}")
+    print(f"FMRIprep_ver: {fmriprep_ver}")
+    print(f"output: {output_path}")
     strategy_names = get_prepro_strategy(None)
     motion_qc = get_qc_criteria(args.qc)
     metric_option = str(args.metric)

@@ -78,6 +78,7 @@ def _get_connectome_metric_paths(
             )
         )
     )
+
     if not files:
         raise FileNotFoundError(
             "No file matching the supplied arguments:"
@@ -232,6 +233,7 @@ def prepare_modularity_plotting(
     pandas.DataFrame
         Summary metrics by group, by strategy
     """
+    
     files_network, modularity_labels = _get_connectome_metric_paths(
         dataset,
         fmriprep_version,
@@ -297,7 +299,7 @@ def _calculate_corr_modularity(modularity, movement, label):
     )
 
     # full sample
-    for strategy, value in modularity.iloc[:, 1:].iteritems():
+    for strategy, value in modularity.iloc[:, 1:].items():
         current_df = partial_correlation(
             value,
             movement["mean_framewise_displacement"],

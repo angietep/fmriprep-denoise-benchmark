@@ -17,6 +17,10 @@ PHENOTYPE_INFO = {
         "columns": ["age", "gender", "diagnosis"],
         "replace": {"diagnosis": "groups"},
     },
+    "SAYproject": {
+        "columns": ["sex", "age", "group"],
+        "replace": {"group": "groups", "sex":"gender"},
+    },
 }
 
 
@@ -91,19 +95,22 @@ def fetch_fmriprep_derivative(
     func_img_path, confounds_tsv_path, include_subjects = [], [], []
     for subject_dir in subject_dirs:
         subject = subject_dir.name
+        ses = "ses-A"
         desc = "smoothAROMAnonaggr" if aroma else "preproc"
         space = "MNI152NLin6Asym" if aroma else space
         cur_func = (
             subject_dir
-            / "func"
-            / f"{subject}_{specifier}_space-{space}_desc-{desc}_bold.nii.gz"
+            / f"{ses}"
+            /"func"
+            / f"{subject}_{ses}_{specifier}_space-{space}_desc-{desc}_bold.nii.gz"
         )
         cur_confound = (
             subject_dir
+            / f"{ses}"
             / "func"
-            / f"{subject}_{specifier}_desc-confounds_timeseries.tsv"
+            / f"{subject}_{ses}_{specifier}_desc-confounds_timeseries.tsv"
         )
-
+        
         if cur_func.is_file() and cur_confound.is_file():
             func_img_path.append(str(cur_func))
             confounds_tsv_path.append(str(cur_confound))
