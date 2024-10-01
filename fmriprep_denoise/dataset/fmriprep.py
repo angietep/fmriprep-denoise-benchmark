@@ -67,7 +67,7 @@ def fetch_fmriprep_derivative(
         nilearn.dataset.fetch* like output.
 
     """
-
+    
     # participants tsv from the main dataset
     if not participant_tsv_path.is_file():
         raise FileNotFoundError(f"Cannot find {participant_tsv_path}")
@@ -91,6 +91,7 @@ def fetch_fmriprep_derivative(
                 subject_dirs.append(s_path)
     else:
         raise ValueError("Unsupported input for subject.")
+    print(subject_dirs)
 
     func_img_path, confounds_tsv_path, include_subjects = [], [], []
     for subject_dir in subject_dirs:
