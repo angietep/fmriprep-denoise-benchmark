@@ -94,7 +94,6 @@ def fetch_fmriprep_derivative(
     
     func_img_path, confounds_tsv_path, include_subjects = [], [], []
     for subject_dir in subject_dirs:
-        print(subject_dir)
         subject = subject_dir.name
         ses = "ses-A"
         desc = "smoothAROMAnonaggr" if aroma else "preproc"
@@ -111,7 +110,6 @@ def fetch_fmriprep_derivative(
             / "func"
             / f"{subject}_{ses}_{specifier}_desc-confounds_timeseries.tsv"
         )
-        print(cur_func)
         if cur_func.is_file() and cur_confound.is_file():
             func_img_path.append(str(cur_func))
             confounds_tsv_path.append(str(cur_confound))

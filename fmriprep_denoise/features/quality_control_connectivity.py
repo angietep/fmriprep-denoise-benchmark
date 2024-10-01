@@ -103,7 +103,7 @@ def qcfc(movement, connectomes, covarates=None):
 
     if covarates is not None:
         #print(covarates)
-        #covarates = covarates.apply(stats.zscore)
+        covarates = covarates.apply(stats.zscore)
         cov_names = covarates.columns
         connectomes = pd.concat((connectomes, covarates), axis=1)
 
