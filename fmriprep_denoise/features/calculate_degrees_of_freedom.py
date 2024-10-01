@@ -58,8 +58,7 @@ def main():
 
     output_root.mkdir(exist_ok=True, parents=True)
     path_movement = Path(
-        output_root / f"dataset-{dataset_name}_desc-movement_phenotype.tsv"
-    )
+        output_root / f"dataset-{dataset_name}_desc-movement_phenotype.tsv")
 
     path_dof = Path(
         output_root / f"dataset-{dataset_name}_desc-confounds_phenotype.tsv"
