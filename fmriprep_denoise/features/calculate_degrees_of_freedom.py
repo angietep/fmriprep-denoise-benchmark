@@ -55,10 +55,12 @@ def main():
     fmriprep_path = Path(args.fmriprep_path)
     participant_tsv = Path(args.participants_tsv)
     output_root = Path(args.output_path)
-
+    
+    print(output_root)
     output_root.mkdir(exist_ok=True, parents=True)
     path_movement = Path(
-        output_root / f"dataset-{dataset_name}_desc-movement_phenotype.tsv")
+        output_root / f"dataset-{dataset_name}_desc-movement_phenotype.tsv"
+        )
 
     path_dof = Path(
         output_root / f"dataset-{dataset_name}_desc-confounds_phenotype.tsv"
