@@ -91,10 +91,10 @@ def fetch_fmriprep_derivative(
                 subject_dirs.append(s_path)
     else:
         raise ValueError("Unsupported input for subject.")
-    print(subject_dirs)
-
+    
     func_img_path, confounds_tsv_path, include_subjects = [], [], []
     for subject_dir in subject_dirs:
+        print(subject_dir)
         subject = subject_dir.name
         ses = "ses-A"
         desc = "smoothAROMAnonaggr" if aroma else "preproc"
