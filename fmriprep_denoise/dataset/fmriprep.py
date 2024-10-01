@@ -18,8 +18,8 @@ PHENOTYPE_INFO = {
         "replace": {"diagnosis": "groups"},
     },
     "SAYproject": {
-        "columns": ["sex", "age", "group"],
-        "replace": {"group": "groups", "sex":"gender"},
+        "columns": ["Sex", "Age", "Group"],
+        "replace": {"Group": "groups", "Sex":"gender", "Age":"age"},
     },
 }
 
