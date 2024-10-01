@@ -104,7 +104,7 @@ def main():
         subject=subject,
     )
     
-    print(data)
+    #print(data)
 
     generate_timeseries_per_dimension(
         atlas_name, ts_output, benchmark_strategies, data_aroma, data
