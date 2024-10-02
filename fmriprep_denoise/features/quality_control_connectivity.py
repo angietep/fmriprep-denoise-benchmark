@@ -58,7 +58,6 @@ def partial_correlation(x, y, cov=None):
         Correlation and p-value.
     """
     if isinstance(cov, np.ndarray):
-        print(f"cov:{cov}")
         beta_cov_x = linalg.lstsq(cov, x)[0]
         beta_cov_y = linalg.lstsq(cov, y)[0]
         resid_x = x - cov.dot(beta_cov_x)
