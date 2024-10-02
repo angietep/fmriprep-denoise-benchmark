@@ -145,6 +145,8 @@ def _load_valid_timeseries(atlas, extracted_path, participant_id, file_pattern):
         )
         if len(file_path) > 1:
             raise ValueError("Found more than one valid file." f"{file_path}")
+        if len(file_path) < 1:
+            continue
         file_path = file_path[0]
         if file_path.stat().st_size > 1:
             ts = pd.read_csv(file_path, sep="\t", header=0)
