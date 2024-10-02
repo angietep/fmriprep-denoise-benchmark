@@ -17,7 +17,7 @@ PHENOTYPE_INFO = {
         "columns": ["age", "gender", "diagnosis"],
         "replace": {"diagnosis": "groups"},
     },
-    "SAYproject": {
+    "SAY2024D1": {
         "columns": ["Sex", "Age", "Group"],
         "replace": {"Group": "groups", "Sex":"gender", "Age":"age"},
     },
