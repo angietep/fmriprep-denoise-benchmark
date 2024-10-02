@@ -64,9 +64,11 @@ def partial_correlation(x, y, cov=None):
         resid_y = y - cov.dot(beta_cov_y)
         r, p_val = stats.pearsonr(resid_x, resid_y)
     else:
-        x = x[~np.isnan(x).any(axis=1)]
-        y = y[~np.isnan(y).any(axis=1)]
-        print(f" x size {len(x)} y size {len(y)}")
+        # Create a mask to filter out NaN values in both arrays
+        mask = ~np.isnan(x) & ~np.isnan(y)
+        # Apply the mask to both x and y
+        x = x[mask]
+        y = y[mask]
         r, p_val = stats.pearsonr(x, y)
     return {"correlation": r, "pvalue": p_val}
 
