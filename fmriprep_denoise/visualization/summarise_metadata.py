@@ -11,7 +11,7 @@ import itertools
 
 
 qc_names = ["stringent", "minimal", None]
-datasets = ["ds000228", "ds000030", "SAYproject"]
+datasets = ["ds000228", "ds000030", "SAY2024D1"]
 fmriprep_versions = ["fmriprep-20.2.1lts", "fmriprep-20.2.5lts", "fmriprep"]
 
 
