@@ -302,8 +302,6 @@ def _calculate_corr_modularity(modularity, movement, label):
     for strategy, value in modularity.iloc[:, 1:].items():
         print(strategy)
         print(value)
-        print(movement["mean_framewise_displacement"])
-        print(z_movement[["age", "gender"]])
         current_df = partial_correlation(
             value,
             movement["mean_framewise_displacement"],
