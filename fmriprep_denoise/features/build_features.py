@@ -74,7 +74,7 @@ def main():
     fmriprep_ver = input_path.name
     fmriprep_ver ="fmriprep"
     path_root = Path(args.output_path).absolute()
-    output_path = path_root / dataset / fmriprep_ver /
+    output_path = path_root / dataset / fmriprep_ver
     output_path.mkdir(parents=True, exist_ok=True)
     print(f"output: {output_path}")
     print(f"path_root: {path_root}")
