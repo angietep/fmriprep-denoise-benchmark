@@ -59,7 +59,7 @@ def partial_correlation(x, y, cov=None):
     """
     if isinstance(cov, np.ndarray):
         # Create a mask to filter out NaN values in both arrays
-        mask = ~np.isnan(x) & ~np.isnan(y) & ~np.isnan(cov)
+        mask = ~np.isnan(x) & ~np.isnan(y) & ~np.isnan(cov[:, 0]) & ~np.isnan(cov[:, 1])
         # Apply the mask to both x and y
         print(x[~mask])
         print(y[~mask])
