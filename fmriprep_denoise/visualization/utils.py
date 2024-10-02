@@ -254,7 +254,6 @@ def prepare_modularity_plotting(
         mean_by_group, sd_by_group = _calculate_descriptive_modularity(
             modularity, label
         )
-        print(f"movement {movement}")
         corr_modularity = _calculate_corr_modularity(modularity, movement, label)
         ds_mean_modularity.append(mean_by_group)
         ds_sd_modularity.append(sd_by_group)
