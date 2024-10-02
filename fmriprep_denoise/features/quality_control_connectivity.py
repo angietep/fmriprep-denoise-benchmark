@@ -43,7 +43,6 @@ def significant_level(x, alpha=0.05, correction=None):
 def partial_correlation(x, y, cov=None):
     print(x)
     print(y)
-    print(cov)
     """A minimal implementation of partial correlation.
 
     Parameters
