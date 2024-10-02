@@ -242,7 +242,7 @@ def prepare_modularity_plotting(
         dimension,
         path_root,
     )
-    print(path_root)
+
     _, movement, _ = get_descriptive_data(dataset, fmriprep_version, path_root, **qc)
 
     ds_mean_corr, ds_mean_modularity, ds_sd_modularity = [], [], []
