@@ -38,6 +38,8 @@ def parse_args():
             "in between sub-<subject>_ses-<session>_and `space-<template>`."
         ),
     )
+    parser.add_argument("--subjects", action="store", type=list, help="list of subjects id.")
+
     parser.add_argument(
         "--participants_tsv",
         action="store",
@@ -55,6 +57,7 @@ def main():
     fmriprep_path = Path(args.fmriprep_path)
     participant_tsv = Path(args.participants_tsv)
     output_root = Path(args.output_path)
+    subjects = args.subjects
     
     output_root.mkdir(exist_ok=True, parents=True)
     path_movement = Path(
@@ -65,7 +68,7 @@ def main():
     )
 
     full_data = fetch_fmriprep_derivative(
-        dataset_name, participant_tsv, fmriprep_path, fmriprep_specifier
+        dataset_name, participant_tsv, fmriprep_path, fmriprep_specifier, subjects
     )
 
     if dataset_name == "ds000030":
