@@ -14,7 +14,7 @@ from fmriprep_denoise.features import qcfc, louvain_modularity
 
 
 # another very bad special case handling
-group_info_column = {"ds000228": "Child_Adult", "ds000030": "diagnosis", "SAYproject": "group"}
+group_info_column = {"ds000228": "Child_Adult", "ds000030": "diagnosis", "SAY2024D1": "Group"}
 
 
 def parse_args():
