@@ -70,11 +70,11 @@ def main():
 
     print(input_path)
     dataset = input_path.parents[0].name
-    dataset = "SAYproject"
+    dataset = "SAY2024D1"
     fmriprep_ver = input_path.name
     fmriprep_ver ="fmriprep"
     path_root = Path(args.output_path).absolute()
-    output_path = path_root / dataset / fmriprep_ver / "outputs_test"
+    output_path = path_root / dataset / fmriprep_ver /
     output_path.mkdir(parents=True, exist_ok=True)
     print(f"output: {output_path}")
     print(f"path_root: {path_root}")
