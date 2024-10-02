@@ -58,6 +58,15 @@ def partial_correlation(x, y, cov=None):
         Correlation and p-value.
     """
     if isinstance(cov, np.ndarray):
+        # Create a mask to filter out NaN values in both arrays
+        mask = ~np.isnan(x) & ~np.isnan(y) & ~np.isnan(cov)
+        # Apply the mask to both x and y
+        print(x[~mask])
+        print(y[~mask])
+        print(cov[~mask])
+        x = x[mask]
+        y = y[mask]
+        cov = cov[mask]
         beta_cov_x = linalg.lstsq(cov, x)[0]
         beta_cov_y = linalg.lstsq(cov, y)[0]
         resid_x = x - cov.dot(beta_cov_x)
