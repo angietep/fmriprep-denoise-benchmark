@@ -77,18 +77,18 @@ def main():
 
     print(f"Figure saved to {output_file}")
  
-    fig = plot_network_modularity(
+    figs = plot_network_modularity(
             dataset,
             fmriprep_version,
             metrics_path,
             by_group=True
            )
     
-    output_file = metrics_path / f"{dataset}_network_modularity.png"
-    fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
-
-    print(f"Figure saved to {output_file}")
-    
+    for i, fig in enumerate(figs):
+        output_file = metrics_path / f"{dataset}_network_modularity_{i}.png"
+        fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save each figure with high resolution
+        print(f"Figure {i} saved to {output_file}")
+        
     fig = plot_dof_dataset(
         fmriprep_version, 
         metrics_path
