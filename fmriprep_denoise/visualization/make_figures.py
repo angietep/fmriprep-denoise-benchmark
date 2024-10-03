@@ -80,7 +80,8 @@ def main():
     fig = plot_network_modularity(
             dataset,
             fmriprep_version,
-            metrics_path
+            metrics_path,
+            by_group=True
            )
     
     output_file = metrics_path / f"{dataset}_network_modularity.png"
