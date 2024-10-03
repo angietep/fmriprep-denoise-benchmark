@@ -381,6 +381,7 @@ def plot_dof_dataset(
     ds_groups = []
    
     for ax, dataset in zip(axs, datasets):
+        print(ax)
         (
             confounds_phenotype,
             participant_groups,
