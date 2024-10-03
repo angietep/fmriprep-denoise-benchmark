@@ -493,11 +493,17 @@ def plot_vol_scrubbed_dataset(
     proportion_thresh : None or float
         Proportion of volumes scrubbed threshold.
     """
-    datasets = ["ds000228", "ds000030"]
+    #datasets = ["ds000228", "ds000030"]
     datasets = ["SAY2024D1"]
+    
+    # Create a figure and subplots (for multiple datasets, adjust ncols to match your number of datasets)
+    fig, axs = plt.subplots(ncols=len(datasets), figsize=(11, 5), constrained_layout=True)
 
-    fig = plt.figure(constrained_layout=True, figsize=(11, 5))
-    axs = fig.subplots(1, 2, sharey=True)
+    # If only one dataset, axs won't be a list, so adjust accordingly
+    if len(datasets) == 1:
+        axs = [axs]  # Make it a list for consistent handling in the loop
+    
+    ds_groups = []
 
     for ax, dataset in zip(axs, datasets):
         (
