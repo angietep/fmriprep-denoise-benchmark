@@ -98,7 +98,7 @@ def main():
         print(f"Figure saved to {output_file}")        
    
     
-   fig, groups = plot_dof_dataset(
+    fig, groups = plot_dof_dataset(
                     fmriprep_version, 
                     metrics_path
         )
