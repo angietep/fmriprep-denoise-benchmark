@@ -369,6 +369,7 @@ def plot_dof_dataset(
         Proportion of volumes scrubbed threshold.
     """
     datasets = ["ds000228", "ds000030"]
+    datasets = ["SAY2024D1"]
 
     fig = plt.figure(constrained_layout=True, figsize=(11, 5))
     axs = fig.subplots(1, 2, sharey=True)
@@ -483,6 +484,7 @@ def plot_vol_scrubbed_dataset(
         Proportion of volumes scrubbed threshold.
     """
     datasets = ["ds000228", "ds000030"]
+    datasets = ["SAY2024D1"]
 
     fig = plt.figure(constrained_layout=True, figsize=(11, 5))
     axs = fig.subplots(1, 2, sharey=True)
