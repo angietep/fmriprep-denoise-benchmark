@@ -81,18 +81,27 @@ def main():
             dataset,
             fmriprep_version,
             metrics_path,
-            by_group=True
+            by_group=False
            )
     
-    for i, fig in enumerate(figs):
-        output_file = metrics_path / f"{dataset}_network_modularity_{i}.png"
-        fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save each figure with high resolution
-        print(f"Figure {i} saved to {output_file}")
-        
-    fig, groups = plot_dof_dataset(
-                fmriprep_version, 
-                metrics_path
-    )
+   # Check if figs is a list (multiple figures) or a single figure
+    if isinstance(figs, list):
+        # Loop through the list of figures and save each one
+        for i, fig in enumerate(figs):
+            output_file = metrics_path / f"{dataset}_network_modularity_{i}.png"
+            fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save each figure with high resolution
+            print(f"Figure {i} saved to {output_file}")
+    else:
+        # If it's a single figure, save it directly
+        output_file = metrics_path / f"{dataset}_network_modularity.png"
+        figs.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
+        print(f"Figure saved to {output_file}")        
+   
+    
+   fig, groups = plot_dof_dataset(
+                    fmriprep_version, 
+                    metrics_path
+        )
     print(f"groups {groups}")
     output_file = metrics_path / f"{dataset}_dof_dataset.png"
     fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
