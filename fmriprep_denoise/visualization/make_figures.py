@@ -93,6 +93,7 @@ def main():
                 fmriprep_version, 
                 metrics_path
     )
+    print(f"groups {groups}")
     output_file = metrics_path / f"{dataset}_dof_dataset.png"
     fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
 
