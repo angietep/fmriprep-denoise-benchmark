@@ -381,7 +381,6 @@ def plot_dof_dataset(
     ds_groups = []
    
     for ax, dataset in zip(axs, datasets):
-        print(ax)
         (
             confounds_phenotype,
             participant_groups,
@@ -404,8 +403,8 @@ def plot_dof_dataset(
             var_name=["strategy", "type"],
         )
         sns.barplot(
-            y="value",
-            x="strategy",
+            x="value",
+            y="strategy",
             data=confounds_phenotype[confounds_phenotype["type"] == "compcor"],
             hue="groups",
             hue_order=groups,
@@ -416,8 +415,8 @@ def plot_dof_dataset(
             ax=ax,
         )
         sns.barplot(
-            y="value",
-            x="strategy",
+            x="value",
+            y="strategy",
             data=confounds_phenotype[confounds_phenotype["type"] == "aroma"],
             hue="groups",
             hue_order=groups,
@@ -428,8 +427,8 @@ def plot_dof_dataset(
             ax=ax,
         )
         sns.barplot(
-            y="value",
-            x="strategy",
+            x="value",
+            y="strategy",
             data=confounds_phenotype[confounds_phenotype["type"] == "fixed_regressors"],
             hue="groups",
             hue_order=groups,
@@ -440,8 +439,8 @@ def plot_dof_dataset(
             ax=ax,
         )
         sns.barplot(
-            y="value",
-            x="strategy",
+            x="value",
+            y="strategy",
             data=confounds_phenotype[confounds_phenotype["type"] == "high_pass"],
             hue="groups",
             hue_order=groups,
