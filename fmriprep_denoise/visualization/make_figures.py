@@ -89,9 +89,9 @@ def main():
         fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save each figure with high resolution
         print(f"Figure {i} saved to {output_file}")
         
-    fig = plot_dof_dataset(
-        fmriprep_version, 
-        metrics_path
+    fig, groups = plot_dof_dataset(
+                fmriprep_version, 
+                metrics_path
     )
     output_file = metrics_path / f"{dataset}_dof_dataset.png"
     fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
