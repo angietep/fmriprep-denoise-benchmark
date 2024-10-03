@@ -313,7 +313,6 @@ def plot_network_modularity(
             dimension, files_network, labels, group, subgroup_movement
         )
         figs.append(fig)
-    return figs
 
 
 def _plot_network_modularity(dimension, files_network, labels, group, movement):
