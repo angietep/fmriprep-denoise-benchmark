@@ -302,17 +302,17 @@ def plot_network_modularity(
         return _plot_network_modularity(
             dimension, files_network, labels, dataset, movement
         )
-
-    _, participant_groups, groups = utils._get_participants_groups(
-        dataset, fmriprep_version, path_root
-    )
-    figs = []
-    for group in groups:
-        subgroup_movement = movement[participant_groups == group]
-        fig = _plot_network_modularity(
-            dimension, files_network, labels, group, subgroup_movement
-        )
-        figs.append(fig)
+    else:
+        _, participant_groups, groups = utils._get_participants_groups(
+            dataset, fmriprep_version, path_root
+            )
+        figs = []
+        for group in groups:
+            subgroup_movement = movement[participant_groups == group]
+            fig = _plot_network_modularity(
+                dimension, files_network, labels, group, subgroup_movement
+            )
+            figs.append(fig)
         return figs
 
 
