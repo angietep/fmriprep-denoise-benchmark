@@ -466,12 +466,10 @@ def plot_dof_dataset(
     ]
     handles = [mpatches.Patch(color=c, label=l) for c, l in zip(colors, labels)]
     # Check if axs is a list (multiple subplots) or a single Axes object
-    if isinstance(axs, list):
-        # Multiple datasets: Access the second subplot
+    if len(axs) > 1:  # Multiple datasets
         axs[1].legend(handles=handles, bbox_to_anchor=(1.7, 1))
-    else:
-        # Single dataset: Only one axis, so use axs directly
-        axs.legend(handles=handles, bbox_to_anchor=(1.7, 1))
+    else:  # Single dataset
+        axs[0].legend(handles=handles, bbox_to_anchor=(1.7, 1))
     return fig, ds_groups
 
 
