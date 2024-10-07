@@ -80,7 +80,6 @@ def main():
     print(f"path_root: {path_root}")
     print(f"Dataset: {dataset}")
     print(f"FMRIprep_ver: {fmriprep_ver}")
-    print(f"output: {output_path}")
     strategy_names = get_prepro_strategy(None)
     motion_qc = get_qc_criteria(args.qc)
     metric_option = str(args.metric)
