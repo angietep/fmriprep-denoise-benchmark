@@ -20,6 +20,7 @@ def load_data(path_root, datasets, fmriprep_version):
         )
         connectomes_correlations = []
         for p in connectomes_path:
+            print(p)
             cc = pd.read_csv(p, sep="\t", index_col=0)[strategies]
             connectomes_correlations.append(cc.corr().values)
         average_connectome = pd.DataFrame(
