@@ -86,7 +86,6 @@ def main():
             metrics_path,
             by_group=False
            )
-    
    # Check if figs is a list (multiple figures) or a single figure
     if isinstance(figs, list):
         # Loop through the list of figures and save each one
@@ -110,6 +109,8 @@ def main():
     fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
     print(f"Figure saved to {output_file}")
   
+    
+  
     fig = plot_vol_scrubbed_dataset(
         fmriprep_version, 
         metrics_path
@@ -118,14 +119,14 @@ def main():
     fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
     print(f"Figure saved to {output_file}")
     
+    
+    
     datasets_list= [dataset]
     criteria_name = None
-    confounds_phenotype = load_data(metrics_path, dataset, criteria_name, fmriprep_version)
-    
+    confounds_phenotype = load_data(metrics_path, datasets_list, criteria_name, fmriprep_version) 
     fig = plot_stats(confounds_phenotype, plot_subgroup=False)
     output_file = metrics_path / f"{dataset}_plotstats_dof.png"
     fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
-
     print(f"Figure saved to {output_file}")
     
 
