@@ -22,6 +22,11 @@ from fmriprep_denoise.visualization.figures import (
     plot_vol_scrubbed_dataset
     ) 
 
+from fmriprep_denoise.visualization.degrees_of_freedom_loss import (
+    load_data,
+    plot_stats
+    ) 
+
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -63,7 +68,6 @@ def main():
     
     output_file = metrics_path / f"{dataset}_motion_resid.png"
     fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
-
     print(f"Figure saved to {output_file}")
     
     
@@ -74,7 +78,6 @@ def main():
     
     output_file = metrics_path / f"{dataset}_distance_dependence.png"
     fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
-
     print(f"Figure saved to {output_file}")
  
     figs = plot_network_modularity(
@@ -105,7 +108,6 @@ def main():
     print(f"groups {groups}")
     output_file = metrics_path / f"{dataset}_dof_dataset.png"
     fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
-
     print(f"Figure saved to {output_file}")
   
     fig = plot_vol_scrubbed_dataset(
@@ -114,8 +116,18 @@ def main():
     )
     output_file = metrics_path / f"{dataset}_vol_scrubbed.png"
     fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
+    print(f"Figure saved to {output_file}")
+    
+    criteria_name = None
+    confounds_phenotype = load_data(metrics_path, dataset, criteria_name, fmriprep_version)
+    
+    fig = plot_stats(confounds_phenotype, plot_subgroup=False)
+    output_file = metrics_path / f"{dataset}_plotstats_dof.png"
+    fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
 
     print(f"Figure saved to {output_file}")
+    
+
 
     
 if __name__ == "__main__":
