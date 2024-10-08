@@ -24,7 +24,7 @@ from fmriprep_denoise.visualization.figures import (
 
 from fmriprep_denoise.visualization import degrees_of_freedom_loss 
 from fmriprep_denoise.visualization import connectivity_similarity
-
+from fmriprep_denoise.visualization import motion_metrics
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -135,7 +135,20 @@ def main():
     fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
     print(f"Figure saved to {output_file}")
 
+    #MOTION METRICS
+    datasets_list= [dataset]
+    criteria_name = None
+    measures = ["p_values","fdr_p_values","median","distance", "modularity", "modularity_motion"]
+    for measure_name in measures:
+        data, measure = motion_metrics.load_data(metrics_path, datasets_list, criteria_name, fmriprep_version, measure_name)
+        fig = motion_metrics.plot_stats(data, measure, group="full_sample")
+        output_file = metrics_path / f"{dataset}_motionmetrics_{measure_name}.png"
+        fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
+        print(f"Figure saved to {output_file}")
+
     
+  
+
 
     
 if __name__ == "__main__":
