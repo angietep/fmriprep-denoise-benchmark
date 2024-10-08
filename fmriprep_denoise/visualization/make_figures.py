@@ -118,6 +118,7 @@ def main():
     fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
     print(f"Figure saved to {output_file}")
     
+    datasets_list= [dataset]
     criteria_name = None
     confounds_phenotype = load_data(metrics_path, dataset, criteria_name, fmriprep_version)
     
