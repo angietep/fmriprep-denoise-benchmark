@@ -22,10 +22,8 @@ from fmriprep_denoise.visualization.figures import (
     plot_vol_scrubbed_dataset
     ) 
 
-from fmriprep_denoise.visualization.degrees_of_freedom_loss import (
-    load_data,
-    plot_stats
-    ) 
+from fmriprep_denoise.visualization import degrees_of_freedom_loss 
+from fmriprep_denoise.visualization import connectivity_similarity
 
 
 def parse_args():
@@ -61,75 +59,83 @@ def main():
     metrics_path = Path(args.metricspath)
 
 
-    fig = plot_motion_resid(
-        dataset,
-        fmriprep_version,
-        metrics_path)
+   #  fig = plot_motion_resid(
+   #      dataset,
+   #      fmriprep_version,
+   #      metrics_path)
     
-    output_file = metrics_path / f"{dataset}_motion_resid.png"
-    fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
-    print(f"Figure saved to {output_file}")
+   #  output_file = metrics_path / f"{dataset}_motion_resid.png"
+   #  fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
+   #  print(f"Figure saved to {output_file}")
     
     
-    fig =  plot_distance_dependence(
-            dataset,
-            fmriprep_version,
-            metrics_path)
+   #  fig =  plot_distance_dependence(
+   #          dataset,
+   #          fmriprep_version,
+   #          metrics_path)
     
-    output_file = metrics_path / f"{dataset}_distance_dependence.png"
-    fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
-    print(f"Figure saved to {output_file}")
+   #  output_file = metrics_path / f"{dataset}_distance_dependence.png"
+   #  fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
+   #  print(f"Figure saved to {output_file}")
  
-    figs = plot_network_modularity(
-            dataset,
-            fmriprep_version,
-            metrics_path,
-            by_group=False
-           )
-   # Check if figs is a list (multiple figures) or a single figure
-    if isinstance(figs, list):
-        # Loop through the list of figures and save each one
-        for i, fig in enumerate(figs):
-            output_file = metrics_path / f"{dataset}_network_modularity_{i}.png"
-            fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save each figure with high resolution
-            print(f"Figure {i} saved to {output_file}")
-    else:
-        # If it's a single figure, save it directly
-        output_file = metrics_path / f"{dataset}_network_modularity.png"
-        figs.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
-        print(f"Figure saved to {output_file}")        
+   #  figs = plot_network_modularity(
+   #          dataset,
+   #          fmriprep_version,
+   #          metrics_path,
+   #          by_group=False
+   #         )
+   # # Check if figs is a list (multiple figures) or a single figure
+   #  if isinstance(figs, list):
+   #      # Loop through the list of figures and save each one
+   #      for i, fig in enumerate(figs):
+   #          output_file = metrics_path / f"{dataset}_network_modularity_{i}.png"
+   #          fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save each figure with high resolution
+   #          print(f"Figure {i} saved to {output_file}")
+   #  else:
+   #      # If it's a single figure, save it directly
+   #      output_file = metrics_path / f"{dataset}_network_modularity.png"
+   #      figs.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
+   #      print(f"Figure saved to {output_file}")        
    
     
-    fig, groups = plot_dof_dataset(
-                    fmriprep_version, 
-                    metrics_path
-        )
-    print(f"groups {groups}")
-    output_file = metrics_path / f"{dataset}_dof_dataset.png"
-    fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
-    print(f"Figure saved to {output_file}")
+   #  fig, groups = plot_dof_dataset(
+   #                  fmriprep_version, 
+   #                  metrics_path
+   #      )
+   #  print(f"groups {groups}")
+   #  output_file = metrics_path / f"{dataset}_dof_dataset.png"
+   #  fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
+   #  print(f"Figure saved to {output_file}")
   
     
   
-    fig = plot_vol_scrubbed_dataset(
-        fmriprep_version, 
-        metrics_path
-    )
-    output_file = metrics_path / f"{dataset}_vol_scrubbed.png"
-    fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
-    print(f"Figure saved to {output_file}")
+   #  fig = plot_vol_scrubbed_dataset(
+   #      fmriprep_version, 
+   #      metrics_path
+   #  )
+   #  output_file = metrics_path / f"{dataset}_vol_scrubbed.png"
+   #  fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
+   #  print(f"Figure saved to {output_file}")
     
     
-    
+    #DEGREES OF FREEDOM LOST
     datasets_list= [dataset]
     criteria_name = None
-    confounds_phenotype = load_data(metrics_path, datasets_list, criteria_name, fmriprep_version) 
-    fig = plot_stats(confounds_phenotype, plot_subgroup=False)
+    confounds_phenotype = degrees_of_freedom_loss.load_data(metrics_path, datasets_list, criteria_name, fmriprep_version) 
+    fig = degrees_of_freedom_loss.plot_stats(confounds_phenotype, plot_subgroup=False)
     output_file = metrics_path / f"{dataset}_plotstats_dof.png"
     fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
     print(f"Figure saved to {output_file}")
     
+    #CONNECTIVITY SIMILARITY
+    datasets_list= [dataset]
+    average_connectomes = connectivity_similarity.load_data(metrics_path, datasets_list, fmriprep_version) 
+    fig = connectivity_similarity.plot_stats(average_connectomes, horizontal=False)
+    output_file = metrics_path / f"{dataset}_connectivitysimilarity.png"
+    fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
+    print(f"Figure saved to {output_file}")
 
+    
 
     
 if __name__ == "__main__":
