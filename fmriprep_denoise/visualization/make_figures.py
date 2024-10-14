@@ -152,7 +152,9 @@ def main():
     fmriprep_versions_list = [fmriprep_version]
     criteria_name = None
     data_table = strategy_ranking.load_data(metrics_path, datasets_list, fmriprep_versions_list, criteria_name)
-    print(f"data table {data_table}")
+    output_table = metrics_path / f"{dataset}_strategyranking_table.csv"
+    data_table.to_csv(output_table, index=True)
+
     fig = strategy_ranking.plot_ranking(data_table,datasets_list,fmriprep_versions_list)
     output_file = metrics_path / f"{dataset}_strategyranking.png"
     fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution

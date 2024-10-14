@@ -73,7 +73,59 @@ def _rank_motion_metrics(path_root, datasets, criteria_name, fmriprep_version, d
     return metrics
 
 
-def plot_ranking(data,datasets,fmriprep_versions):
+def plot_ranking_orig(data):
+    """Plot the ranking of 4 selected metrics as bubble heatmaps."""
+    fig, axs = plt.subplots(
+        2, 2, figsize=(9.6, 4.8), sharex=True, sharey=True, constrained_layout=True
+    )
+    fig.suptitle(
+        "Ranking of all strategies per dataset per fMRIPrep version",
+        weight="heavy",
+        fontsize="x-large",
+    )
+    for j, d in enumerate(datasets):
+        for i, v in enumerate(fmriprep_versions):
+            mat = data.xs(d, level="dataset", drop_level=True)
+            mat = mat.xs(v, level="version", drop_level=True)
+            mat = mat.droplevel(None, axis=1)
+            mat = mat.loc[
+                ["modularity", "distance", "median", "p_values", "loss_df"],
+                strategy_order
+            ]
+            n_metrics, n_strategy = mat.shape
+
+            x_strategy, y_metrics = np.meshgrid(np.arange(n_strategy), np.arange(n_metrics))
+
+            r_ranking = (len(strategy_order) + 1 - mat) / (len(strategy_order) + 1) / 2
+            circles = [
+                plt.Circle((x, y), radius=r)
+                for r, x, y in zip(r_ranking.values.flat,
+                                   x_strategy.flat,
+                                   y_metrics.flat)
+            ]
+            col = PatchCollection(circles, array=mat.values.flatten(), cmap="rocket_r")
+            axs[i, j].add_collection(col)
+
+            axs[i, j].set(
+                xticks=np.arange(n_strategy),
+                yticks=np.arange(n_metrics),
+                xticklabels=mat.columns,
+                yticklabels=[
+                    "Average network modularity",
+                    "DM-FC",
+                    "QC-FC: median",
+                    "QC-FC: significant",
+                    "Loss of temporal degrees of freedom",
+                ],
+            )
+            axs[i, j].set_xticklabels(mat.columns, rotation=45, ha="right")
+            axs[i, j].set_xticks(np.arange(n_strategy + 1) - 0.5, minor=True)
+            axs[i, j].set_yticks(np.arange(n_metrics + 1) - 0.5, minor=True)
+            axs[i, j].grid(which="minor")
+            axs[i, j].set_title(f"{d}: {v}")
+
+    fig.colorbar(col)
+    return fig
     
     """Plot the ranking of selected metrics as bubble heatmaps, adjusting for the number of datasets and versions."""
    
@@ -144,4 +196,79 @@ def plot_ranking(data,datasets,fmriprep_versions):
             axs[i, j].set_title(f"{d}: {v}")
 
     fig.colorbar(col, ax=axs.ravel().tolist())
+    return fig
+
+def plot_ranking(data, datasets, fmriprep_versions):
+    """Plot the ranking of selected metrics as bubble heatmaps, adjusting for the number of datasets and versions."""
+    
+    # Set up the number of rows and columns based on datasets and fmriprep_versions
+    n_rows = len(datasets)
+    n_cols = len(fmriprep_versions)
+    
+    # Create subplots dynamically based on the number of datasets and versions
+    if n_rows == 1 and n_cols == 1:
+        fig, axs = plt.subplots(figsize=(9.6, 4.8), constrained_layout=True)  # single plot
+    else:
+        fig, axs = plt.subplots(
+            n_rows, n_cols, figsize=(9.6 * n_cols, 4.8 * n_rows), 
+            sharex=True, sharey=True, constrained_layout=True
+        )
+    
+    # If only one subplot, axs is not a 2D array, so we skip indexing
+    if n_rows == 1 and n_cols == 1:
+        axs = np.array([axs])  # Convert to array for consistency
+    elif n_rows == 1 or n_cols == 1:
+        axs = np.expand_dims(axs, axis=0 if n_rows == 1 else 1)
+    
+    fig.suptitle(
+        "Ranking of all strategies per dataset per fMRIPrep version",
+        weight="heavy",
+        fontsize="x-large",
+    )
+
+    for j, d in enumerate(datasets):
+        for i, v in enumerate(fmriprep_versions):
+            mat = data.xs(d, level="dataset", drop_level=True)
+            mat = mat.xs(v, level="version", drop_level=True)
+            mat = mat.droplevel(None, axis=1)
+            mat = mat.loc[
+                ["modularity", "distance", "median", "p_values", "loss_df"],
+                strategy_order
+            ]
+            n_metrics, n_strategy = mat.shape
+
+            x_strategy, y_metrics = np.meshgrid(np.arange(n_strategy), np.arange(n_metrics))
+
+            r_ranking = (len(strategy_order) + 1 - mat) / (len(strategy_order) + 1) / 2
+            circles = [
+                plt.Circle((x, y), radius=r)
+                for r, x, y in zip(r_ranking.values.flat,
+                                   x_strategy.flat,
+                                   y_metrics.flat)
+            ]
+            col = PatchCollection(circles, array=mat.values.flatten(), cmap="rocket_r")
+            
+            # Check if axs is 1D (i.e., single plot), no need for 2D indexing
+            ax = axs[j, i] if (n_rows > 1 or n_cols > 1) else axs[0]
+            
+            ax.add_collection(col)
+            ax.set(
+                xticks=np.arange(n_strategy),
+                yticks=np.arange(n_metrics),
+                xticklabels=mat.columns,
+                yticklabels=[
+                    "Average network modularity",
+                    "DM-FC",
+                    "QC-FC: median",
+                    "QC-FC: significant",
+                    "Loss of temporal degrees of freedom",
+                ],
+            )
+            ax.set_xticklabels(mat.columns, rotation=45, ha="right")
+            ax.set_xticks(np.arange(n_strategy + 1) - 0.5, minor=True)
+            ax.set_yticks(np.arange(n_metrics + 1) - 0.5, minor=True)
+            ax.grid(which="minor")
+            ax.set_title(f"{d}: {v}")
+
+    fig.colorbar(col, ax=axs.ravel().tolist())  # Flatten axs array for colorbar
     return fig
