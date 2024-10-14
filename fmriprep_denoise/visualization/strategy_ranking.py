@@ -84,18 +84,17 @@ def plot_ranking(data,datasets,fmriprep_versions):
    # Create subplots dynamically based on the number of datasets and versions
     if n_rows == 1 and n_cols == 1:
         fig, axs = plt.subplots(figsize=(9.6, 4.8), constrained_layout=True)  # single plot
-        axs = np.array([[axs]])  # Wrap it into a 2D array to match the indexing later
     else:
         fig, axs = plt.subplots(
             n_rows, n_cols, figsize=(9.6 * n_cols, 4.8 * n_rows), 
             sharex=True, sharey=True, constrained_layout=True
         )
     
-    # Ensure axs is 2D array even if there's a single row or column
-    if n_rows == 1:
-        axs = np.expand_dims(axs, axis=0)
-    if n_cols == 1:
-        axs = np.expand_dims(axs, axis=1)
+   # Ensure axs is always a 2D array for consistent indexing
+    if n_rows == 1 and n_cols == 1:
+        axs = np.array([axs])  # Convert to array for uniform handling
+    elif n_rows == 1 or n_cols == 1:
+        axs = np.expand_dims(axs, axis=0 if n_rows == 1 else 1)
    
     fig.suptitle(
        "Ranking of all strategies per dataset per fMRIPrep version",
