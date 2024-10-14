@@ -73,7 +73,7 @@ def _rank_motion_metrics(path_root, datasets, criteria_name, fmriprep_version, d
     return metrics
 
 
-def plot_ranking(data):
+def plot_ranking(data,datasets,fmriprep_versions):
     """Plot the ranking of 4 selected metrics as bubble heatmaps."""
     fig, axs = plt.subplots(
         2, 2, figsize=(9.6, 4.8), sharex=True, sharey=True, constrained_layout=True

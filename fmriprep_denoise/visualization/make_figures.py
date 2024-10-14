@@ -153,7 +153,7 @@ def main():
     criteria_name = None
     data_table = strategy_ranking.load_data(metrics_path, datasets_list, fmriprep_versions_list, criteria_name)
     print(f"data table {data_table}")
-    fig = strategy_ranking.plot_ranking(data_table)
+    fig = strategy_ranking.plot_ranking(data_table,datasets_list,fmriprep_versions_list)
     output_file = metrics_path / f"{dataset}_strategyranking.png"
     fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
     print(f"Figure saved to {output_file}")    
