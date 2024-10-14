@@ -8,11 +8,11 @@ from matplotlib.collections import PatchCollection
 
 
 strategy_order = list(utils.GRID_LOCATION.values())
-fmriprep_versions = ["fmriprep-20.2.1lts", "fmriprep-20.2.5lts"]
-datasets = ["ds000228", "ds000030"]
+#fmriprep_versions = ["fmriprep-20.2.1lts", "fmriprep-20.2.5lts"]
+#datasets = ["ds000228", "ds000030"]
 
 
-def load_data(path_root, datasets, criteria_name="stringent"):
+def load_data(path_root, datasets, fmriprep_versions, criteria_name="stringent"):
     mean_total_ranking = []
     for v, d in product(fmriprep_versions, datasets):
         dof = _rank_degrees_of_freedom(path_root, criteria_name, v, d)

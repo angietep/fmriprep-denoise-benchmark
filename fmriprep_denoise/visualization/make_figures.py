@@ -25,6 +25,7 @@ from fmriprep_denoise.visualization.figures import (
 from fmriprep_denoise.visualization import degrees_of_freedom_loss 
 from fmriprep_denoise.visualization import connectivity_similarity
 from fmriprep_denoise.visualization import motion_metrics
+from fmriprep_denoise.visualization import strategy_ranking
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -59,63 +60,63 @@ def main():
     metrics_path = Path(args.metricspath)
 
 
-   #  fig = plot_motion_resid(
-   #      dataset,
-   #      fmriprep_version,
-   #      metrics_path)
+    fig = plot_motion_resid(
+         dataset,
+         fmriprep_version,
+         metrics_path)
     
-   #  output_file = metrics_path / f"{dataset}_motion_resid.png"
-   #  fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
-   #  print(f"Figure saved to {output_file}")
+    output_file = metrics_path / f"{dataset}_motion_resid.png"
+    fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
+    print(f"Figure saved to {output_file}")
     
     
-   #  fig =  plot_distance_dependence(
-   #          dataset,
-   #          fmriprep_version,
-   #          metrics_path)
+    fig =  plot_distance_dependence(
+             dataset,
+             fmriprep_version,
+             metrics_path)
     
-   #  output_file = metrics_path / f"{dataset}_distance_dependence.png"
-   #  fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
-   #  print(f"Figure saved to {output_file}")
+    output_file = metrics_path / f"{dataset}_distance_dependence.png"
+    fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
+    print(f"Figure saved to {output_file}")
  
-   #  figs = plot_network_modularity(
-   #          dataset,
-   #          fmriprep_version,
-   #          metrics_path,
-   #          by_group=False
-   #         )
-   # # Check if figs is a list (multiple figures) or a single figure
-   #  if isinstance(figs, list):
-   #      # Loop through the list of figures and save each one
-   #      for i, fig in enumerate(figs):
-   #          output_file = metrics_path / f"{dataset}_network_modularity_{i}.png"
-   #          fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save each figure with high resolution
-   #          print(f"Figure {i} saved to {output_file}")
-   #  else:
-   #      # If it's a single figure, save it directly
-   #      output_file = metrics_path / f"{dataset}_network_modularity.png"
-   #      figs.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
-   #      print(f"Figure saved to {output_file}")        
+    figs = plot_network_modularity(
+             dataset,
+             fmriprep_version,
+             metrics_path,
+             by_group=False
+            )
+    # Check if figs is a list (multiple figures) or a single figure
+    if isinstance(figs, list):
+         # Loop through the list of figures and save each one
+         for i, fig in enumerate(figs):
+             output_file = metrics_path / f"{dataset}_network_modularity_{i}.png"
+             fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save each figure with high resolution
+             print(f"Figure {i} saved to {output_file}")
+    else:
+         # If it's a single figure, save it directly
+         output_file = metrics_path / f"{dataset}_network_modularity.png"
+         figs.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
+         print(f"Figure saved to {output_file}")        
    
     
-   #  fig, groups = plot_dof_dataset(
-   #                  fmriprep_version, 
-   #                  metrics_path
-   #      )
-   #  print(f"groups {groups}")
-   #  output_file = metrics_path / f"{dataset}_dof_dataset.png"
-   #  fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
-   #  print(f"Figure saved to {output_file}")
+    fig, groups = plot_dof_dataset(
+                     fmriprep_version, 
+                     metrics_path
+         )
+    print(f"groups {groups}")
+    output_file = metrics_path / f"{dataset}_dof_dataset.png"
+    fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
+    print(f"Figure saved to {output_file}")
   
     
   
-   #  fig = plot_vol_scrubbed_dataset(
-   #      fmriprep_version, 
-   #      metrics_path
-   #  )
-   #  output_file = metrics_path / f"{dataset}_vol_scrubbed.png"
-   #  fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
-   #  print(f"Figure saved to {output_file}")
+    fig = plot_vol_scrubbed_dataset(
+         fmriprep_version, 
+         metrics_path
+     )
+    output_file = metrics_path / f"{dataset}_vol_scrubbed.png"
+    fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
+    print(f"Figure saved to {output_file}")
     
     
     #DEGREES OF FREEDOM LOST
@@ -146,8 +147,17 @@ def main():
         fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
         print(f"Figure saved to {output_file}")
 
-    
-  
+    #Strategy rankings
+    datasets_list= [dataset]
+    fmriprep_versions_list = [fmriprep_version]
+    criteria_name = None
+    data_table = strategy_ranking.load_data(metrics_path, datasets_list, fmriprep_versions_list, criteria_name)
+    print(f"data table {data_table}")
+    fig = strategy_ranking.plot_ranking(data_table)
+    output_file = metrics_path / f"{dataset}_strategyranking.png"
+    fig.savefig(output_file, dpi=300, bbox_inches='tight')  # Save figure with high resolution
+    print(f"Figure saved to {output_file}")    
+        
 
 
     
