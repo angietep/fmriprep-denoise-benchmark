@@ -95,7 +95,7 @@ def fetch_fmriprep_derivative(
     func_img_path, confounds_tsv_path, include_subjects = [], [], []
     for subject_dir in subject_dirs:
         subject = subject_dir.name
-        ses = "ses-A"
+        ses = "ses-B"
         desc = "smoothAROMAnonaggr" if aroma else "preproc"
         space = "MNI152NLin6Asym" if aroma else space
         cur_func = (
